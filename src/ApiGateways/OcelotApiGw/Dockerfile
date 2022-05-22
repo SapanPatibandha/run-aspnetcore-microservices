@@ -7,7 +7,8 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["OcelotApiGw.csproj", ""]
-COPY ["./src/BuildingBlocks/Common.Logging/Common.Logging.csproj", "./src/BuildingBlocks/Common.Logging/"]
+WORKDIR /src
+COPY ["/BuildingBlocks/Common.Logging/Common.Logging.csproj", "/BuildingBlocks/Common.Logging/"]
 RUN dotnet restore "ApiGateways/OcelotApiGw/OcelotApiGw.csproj"
 COPY . .
 WORKDIR "/src/ApiGateways/OcelotApiGw"
