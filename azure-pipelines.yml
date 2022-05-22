@@ -14,7 +14,7 @@ variables:
   dockerRegistryServiceConnection: 'e2904dd6-f7bd-4206-be71-2242db0ebc04'
   imageRepository: 'sapanpatibandharunaspnetcoremicroservices'
   containerRegistry: 'trialaksregistry.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: '**/src/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'trialaksregistry01c3-auth'
 
