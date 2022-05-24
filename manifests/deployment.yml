@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: sapanpatibandharunaspnetcoremicroservices 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sapanpatibandharunaspnetcoremicroservices
+  template:
+    metadata:
+      labels:
+        app: sapanpatibandharunaspnetcoremicroservices 
+    spec:
+      containers:
+        - name: sapanpatibandharunaspnetcoremicroservices 
+          image: trialakscontreg.azurecr.io/sapanpatibandharunaspnetcoremicroservices
+          ports:
+          - containerPort: 80
