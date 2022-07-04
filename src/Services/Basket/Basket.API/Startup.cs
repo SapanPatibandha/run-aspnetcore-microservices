@@ -60,7 +60,7 @@ namespace Basket.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Basket.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BasketV1.API", Version = "v1" });
             });
 
             services.AddHealthChecks()
