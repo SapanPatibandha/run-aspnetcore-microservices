@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: basket-deployment
+  name: basketapi-deployment
   labels:
     app: basketapi
 spec:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: basketapi
-          image: shoppingacr.azurecr.io/basketapi:v1
+          image: conreg2206.azurecr.io/basketapi:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
