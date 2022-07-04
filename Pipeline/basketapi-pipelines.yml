@@ -2,8 +2,15 @@
 # Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
+
 trigger:
-- master
+    branches:
+      include:
+      - main
+    paths:
+      include:
+      - src/Services/Basket/*
+      - manifests/basketapi.yaml
 
 resources:
 - repo: self
@@ -12,9 +19,9 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'a7acff9a-76a8-4885-bbcd-c3e5e6fbf85d'
-  imageRepository: 'sapanpatibandharunaspnetcoremicroservices'
+  imageRepository: 'basketapi'
   containerRegistry: 'conreg2206.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: 'src/Services/Basket/Basket.API/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'conreg220684582137-auth'
 
@@ -38,7 +45,7 @@ stages:
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
-        buildContext: 'src/'
+        buildContext: '$(Build.SourcesDirectory)/src'
         tags: |
           $(tag)
 
@@ -71,8 +78,7 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
+                $(Pipeline.Workspace)/manifests/basketapi.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |

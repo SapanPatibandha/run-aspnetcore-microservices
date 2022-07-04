@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: shoppingapi-deployment
+  name: basket-deployment
   labels:
-    app: shoppingapi
+    app: basketapi
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: shoppingapi
+      app: basketapi
   template:
     metadata:
       labels:
-        app: shoppingapi
+        app: basketapi
     spec:
       containers:
-        - name: shoppingapi
-          image: shoppingacr.azurecr.io/shoppingapi:v1
-          imagePullPolicy: IfNotPresent          
+        - name: basketapi
+          image: shoppingacr.azurecr.io/basketapi:v1
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           env:
@@ -41,10 +41,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: shoppingapi-service
+  name: basketapi-service
 spec:  
   selector:
-    app: shoppingapi
+    app: basketapi
   ports:
     - protocol: TCP
       port: 80
