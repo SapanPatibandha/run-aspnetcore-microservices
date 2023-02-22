@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discountdb-deployment
+  labels:
+    app: discountdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discountdb
+  template:
+    metadata:
+      labels:
+        app: discountdb
+    spec:
+      containers:
+      - name: discountdb
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+        volumeMounts:
+        - name: discountdb-storage
+          mountPath: /var/lib/postgresql/data
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: discountdb-secret
+              key: postgres-root-username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: discountdb-secret
+              key: postgres-root-password
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: discountdb-secret
+              key: postgres-root-dbname
+      volumes:
+      - name: discountdb-storage
+        persistentVolumeClaim:
+          claimName: discountdb-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: discountdb
+  labels:
+    app: discountdb
+spec:
+  selector:
+    app: discountdb
+  ports:
+  - name: discountdb
+    port: 5432
+    targetPort: 5432
+  type: ClusterIP
