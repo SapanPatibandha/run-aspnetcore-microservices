@@ -21,11 +21,11 @@ spec:
         - containerPort: 1433
         resources:
           requests:
-            memory: "256Mi"
-            cpu: "100m"
-          limits:
             memory: "512Mi"
-            cpu: "200m"
+            cpu: "500m"
+          limits:
+            memory: "1024Mi"
+            cpu: "1000m"
         env:
         - name: ACCEPT_EULA
           value: "Y"
@@ -49,11 +49,4 @@ spec:
     port: 1433
     targetPort: 1433
   type: ClusterIP
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: sqlserver-secret
-type: Opaque
-data:
-  sa-password: <base64-encoded-password>
+  

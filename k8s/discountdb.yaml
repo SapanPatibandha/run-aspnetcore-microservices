@@ -21,14 +21,14 @@ spec:
         - containerPort: 5432
         resources:
           requests:
-            memory: "256Mi"
-            cpu: "100m"
+            memory: "1024Mi"
+            cpu: "1000m"
           limits:
-            memory: "512Mi"
-            cpu: "200m"
-        volumeMounts:
-        - name: discountdb-storage
-          mountPath: /var/lib/postgresql/data
+            memory: "1024Mi"
+            cpu: "1000m"
+        # volumeMounts:
+        # - name: discountdb-storage
+        #   mountPath: /var/lib/postgresql/data
         env:
         - name: POSTGRES_USER
           valueFrom:
@@ -45,10 +45,10 @@ spec:
             secretKeyRef:
               name: discountdb-secret
               key: postgres-root-dbname
-      volumes:
-      - name: discountdb-storage
-        persistentVolumeClaim:
-          claimName: discountdb-pvc
+      # volumes:
+      # - name: discountdb-storage
+      #   persistentVolumeClaim:
+      #     claimName: discountdb-pvc
 ---
 apiVersion: v1
 kind: Service
