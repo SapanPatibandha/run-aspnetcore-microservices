@@ -19,6 +19,9 @@ spec:
           image: mongo
           ports:
             - containerPort: 27017
+          volumeMounts:
+          - name: host-volume
+            mountPath: /catalogdb
           resources:
             requests:
               memory: "512Mi"
@@ -37,6 +40,10 @@ spec:
                 secretKeyRef:
                   name: catalogdb-secret
                   key: mongo-root-password
+      volumes:
+      - name: host-volume
+        hostPath:
+          path: /host/data      
 ---
 apiVersion: v1
 kind: Service

@@ -19,6 +19,9 @@ spec:
           image: redis:alpine
           ports:
           - containerPort: 6379
+          volumeMounts:
+          - name: host-volume
+            mountPath: /basketdb
           resources:
             requests:
               memory: "256Mi"
@@ -26,6 +29,10 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "200m"
+      volumes:
+      - name: host-volume
+        hostPath:
+          path: /host/data
 ---
 apiVersion: v1
 kind: Service

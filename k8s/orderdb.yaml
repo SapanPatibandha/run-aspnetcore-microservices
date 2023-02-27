@@ -19,6 +19,9 @@ spec:
         image: mcr.microsoft.com/mssql/server:2017-latest
         ports:
         - containerPort: 1433
+        volumeMounts:
+        - name: host-volume
+          mountPath: /orderdb
         resources:
           requests:
             memory: "512Mi"
@@ -34,6 +37,10 @@ spec:
             secretKeyRef:
               name: sqlserver-secret
               key: sa-password
+      volumes:
+      - name: host-volume
+        hostPath:
+          path: /host/data      
       imagePullSecrets:
       - name: regcred
 ---
