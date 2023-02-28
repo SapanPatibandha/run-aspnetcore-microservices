@@ -27,8 +27,8 @@ spec:
             memory: "1024Mi"
             cpu: "1000m"
         volumeMounts:
-        - name: discountdb-host-volume
-          mountPath: /discountdb
+        - name: discountdb-persistent-volume
+          mountPath: /var/lib/postgresql/data
         env:
         - name: POSTGRES_USER
           valueFrom:
@@ -45,12 +45,13 @@ spec:
             secretKeyRef:
               name: discountdb-secret
               key: postgres-root-dbname
-      volumes:
-      - name: discountdb-host-volume
-        hostPath:
-          path: /host/data      
       imagePullSecrets:
       - name: regcred
+      volumes:
+      - name: discountdb-persistent-volume
+        hostPath:
+          path: /host/postgres
+          type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: Service
