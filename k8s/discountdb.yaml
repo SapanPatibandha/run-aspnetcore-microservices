@@ -27,7 +27,7 @@ spec:
             memory: "1024Mi"
             cpu: "1000m"
         volumeMounts:
-        - name: host-volume
+        - name: discountdb-host-volume
           mountPath: /discountdb
         env:
         - name: POSTGRES_USER
@@ -46,21 +46,32 @@ spec:
               name: discountdb-secret
               key: postgres-root-dbname
       volumes:
-      - name: host-volume
+      - name: discountdb-host-volume
         hostPath:
           path: /host/data      
+      imagePullSecrets:
+      - name: regcred
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: discountdb
+  name: discountdb-service
   labels:
     app: discountdb
 spec:
   selector:
     app: discountdb
   ports:
-  - name: discountdb
+  - protocol: TCP
     port: 5432
     targetPort: 5432
-  type: ClusterIP
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: discountdb-secret
+type: Opaque
+data:
+  postgres-root-username: YWRtaW4=
+  postgres-root-password: YWRtaW4xMjM0
+  postgres-root-dbname: RGlzY291bnREYg==

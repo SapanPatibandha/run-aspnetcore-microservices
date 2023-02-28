@@ -20,7 +20,7 @@ spec:
           ports:
           - containerPort: 6379
           volumeMounts:
-          - name: host-volume
+          - name: basketdb-host-volume
             mountPath: /basketdb
           resources:
             requests:
@@ -30,7 +30,7 @@ spec:
               memory: "512Mi"
               cpu: "200m"
       volumes:
-      - name: host-volume
+      - name: basketdb-host-volume
         hostPath:
           path: /host/data
 ---
