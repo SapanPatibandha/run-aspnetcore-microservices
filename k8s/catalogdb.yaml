@@ -21,7 +21,7 @@ spec:
             - containerPort: 27017
           volumeMounts:
           - name: catalogdb-host-volume
-            mountPath: /catalogdb
+            mountPath: /var/lib/catalogdb/data
           resources:
             requests:
               memory: "512Mi"

@@ -21,7 +21,7 @@ spec:
           - containerPort: 6379
           volumeMounts:
           - name: basketdb-host-volume
-            mountPath: /basketdb
+            mountPath: /var/lib/basketdb/data
           resources:
             requests:
               memory: "256Mi"

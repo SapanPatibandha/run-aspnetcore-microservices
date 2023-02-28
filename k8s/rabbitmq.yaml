@@ -22,7 +22,7 @@ spec:
         - containerPort: 15672
         volumeMounts:
         - name: rabbitmq-host-volume
-          mountPath: /rabbitmq
+          mountPath: /var/lib/rabbitmq/data
         resources:
           requests:
             memory: "512Mi"

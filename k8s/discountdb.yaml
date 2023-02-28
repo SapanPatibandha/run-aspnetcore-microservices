@@ -50,7 +50,7 @@ spec:
       volumes:
       - name: discountdb-persistent-volume
         hostPath:
-          path: /host/postgres
+          path: /host/data
           type: DirectoryOrCreate
 ---
 apiVersion: v1

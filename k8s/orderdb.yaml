@@ -21,7 +21,7 @@ spec:
         - containerPort: 1433
         volumeMounts:
         - name: orderdb-host-volume
-          mountPath: /orderdb
+          mountPath: /var/lib/orderdb/data
         resources:
           requests:
             memory: "512Mi"
